@@ -1,17 +1,17 @@
 import { Component, input, OnInit, output} from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './auth-form.component.html',
   styleUrl: './auth-form.component.scss'
 })
 export class AuthFormComponent implements OnInit {
   
   isRegister = input<boolean>(false);
+  errors = input<string[]>([]);
   formOutput = output<FormGroup>();
 
   authForm = new FormGroup({

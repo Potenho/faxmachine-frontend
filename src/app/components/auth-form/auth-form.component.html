@@ -1,14 +1,30 @@
 
-<p *ngIf="isRegister()">Registrar</p>
-<p *ngIf="!isRegister()">Login</p>
+<p>@if (this.isRegister()){Register} @else {Login}</p>
+
 <form [formGroup]="authForm" (submit)="formOutput.emit(this.authForm)">
+    <div>
+        <ul>
+            @if (authForm.invalid && authForm.touched) {
+                @if (authForm.get('username')?.invalid && authForm.get('username')?.touched) {
+                    <li>Username must not be empty</li> 
+                }
+                @if (authForm.get('password')?.invalid && authForm.get('password')?.touched) {
+                    <li>Password must not be empty</li> 
+                }
+            }
+        </ul>
+    </div>
+    
+
     <label for="username">Username</label>
     <input type="text" name="username" id="username" formControlName="username" required>
+
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" formControlName="password" required>
-    <ng-container *ngIf="this.isRegister()">
+    <input type="password" name="password" id="password" formControlName="password" required maxlength="39">
+
+    @if (this.isRegister()) {
         <label for="confirm_password">Confirm Password</label>
         <input type="password" name="confirm_password" id="confirm_password" formControlName="confirm_password">
-    </ng-container>
-    <button type="submit">submit</button>
+    }
+    <button type="submit" [disabled]="authForm.invalid">submit</button>
 </form>
