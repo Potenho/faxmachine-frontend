@@ -1,0 +1,14 @@
+
+<p *ngIf="isRegister()">Registrar</p>
+<p *ngIf="!isRegister()">Login</p>
+<form [formGroup]="authForm" (submit)="formOutput.emit(this.authForm)">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" formControlName="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" formControlName="password" required>
+    <ng-container *ngIf="this.isRegister()">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" name="confirm_password" id="confirm_password" formControlName="confirm_password">
+    </ng-container>
+    <button type="submit">submit</button>
+</form>
